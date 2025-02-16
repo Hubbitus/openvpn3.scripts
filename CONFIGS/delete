@@ -1,0 +1,7 @@
+#!/usr/bin/bash
+
+set -x
+
+openvpn3 config-remove --config gid-vpn-plalexeev-3.ovpn
+
+#openvpn3 config-remove --config selectel.ovpn

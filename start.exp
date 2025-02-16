@@ -1,0 +1,40 @@
+#!/usr/bin/expect
+
+# By https://docs.oracle.com/cd/E35328_01/E35336/html/vmcli-script.html
+
+## Access CLI
+set loginUser "plalexeev"
+set loginPassword "PASSWORD"
+
+## Expect Parameters
+set timeout 20
+
+
+# Read OTP By https://stackoverflow.com/questions/9523694/calling-ssh-with-otp-from-a-script/9539648#9539648
+# Read input from the user
+send_user "Enter TOTP code: "
+# Turn off echo to hide password
+#? stty -echo
+expect -re "(.+)\n"
+set TOTPcode $expect_out(1,string)
+# Turn echo back on
+#? stty echo
+#+send_user DEBUG$TOTPcode\n
+
+
+spawn openvpn3 session-start --config gid-vpn-plalexeev-3.ovpn --dco true
+expect_after eof {exit 0}
+
+set timeout 10
+
+expect "Auth User name:" {send "$loginUser\n"}
+
+set timeout 10
+
+expect "Auth Password:" {send "$loginPassword\n"}
+
+set timeout 10
+
+expect "Enter TOTP: " {send "$TOTPcode\n"}
+
+expect "Connected"

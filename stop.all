@@ -1,0 +1,7 @@
+#!/usr/bin/bash
+
+#set -x
+
+echo 'Stop all VPN sessions if any:'
+./sessions.list | grep Path | awk '{print $2}' | xargs -I{} \
+	openvpn3 session-manage --disconnect --path {}

@@ -1,0 +1,27 @@
+#!/usr/bin/bash
+
+#set -x
+set -o pipefail
+
+# Log all
+exec &> >( ts '%d-%H:%M:%.S' | ts -i -- '+%H:%M:%.S' | tee -i -- "$(basename $0).$(date --iso-8601=s).log" )
+#exec &> >( tee -i -- "$(basename $0).$(date --iso-8601=s).log" )
+
+#rm -rvf *.log
+
+while sleep 1 && date --iso-8601=s; ./stop.all; do
+	# For the coproc recipe see https://stackoverflow.com/questions/75657896/kill-the-running-command-when-expected-output-is-met/75658900#75658900
+	coproc ./start.auto 2>&1
+	until echo $line | grep --color -P '(?i)Authentication failed|Client process exited|key decryption failed|TERMINATING|Waiting for server response|timed out|ping failed|Failed to reach jira'; do
+		read -r -u ${COPROC[0]} line
+		echo "check: ${line}"
+	done
+	echo '########################################'
+	echo '##### Error detected. Reconnecting #####'
+	echo '########################################'
+	kill -SIGTERM $COPROC_PID
+	line=''
+	#? wait
+done
+
+echo DONE

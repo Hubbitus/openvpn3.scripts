@@ -1,0 +1,4 @@
+#!/usr/bin/bash
+
+openvpn3 session-start --config gid-vpn-plalexeev-3.ovpn --dco true
+

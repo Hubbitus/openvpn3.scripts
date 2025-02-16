@@ -1,0 +1,14 @@
+#!/usr/bin/bash
+
+source _config
+: ${CONFIG?"Var CONFIG is required!"}
+
+set -x
+
+#openvpn3 log --log-level 6 --session-path /net/openvpn/v3/sessions/93b04210s6eaas42f0sb096s36f50f536872 --session-path /net/openvpn/v3/sessions/dba69074s37a5s4976s91ccsda3195df1e93
+#openvpn3 log --log-level 6 --config-events --config gid-vpn-plalexeev-3.ovpn
+
+openvpn3 log --log-level 6 --config "${CONFIG}"
+
+
+

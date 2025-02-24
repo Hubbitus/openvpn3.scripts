@@ -1,10 +1,12 @@
 #!/usr/bin/bash
 
+#set -x
+
 echo '1) Ping jira.gid.team:'
-ping -c3 jira.gid.team
+ping -c2 jira.gid.team
 
 echo '2) Get static file from jira.gid.team (67 bytes):'
-if curl -sSf --connect-timeout 10 'https://jira.gid.team/s/d41d8cd98f00b204e9800998ecf8427e-CDN/4vmsmm/9120001/4m6das/7.5.0/_/download/resources/com.atlassian.jira.plugins.jira-editor-plugin:tinymce/tinymce-amd.js' 2>&1 >/dev/null; then
+if curl -sSf --connect-timeout 5 'https://jira.gid.team/s/d41d8cd98f00b204e9800998ecf8427e-CDN/4vmsmm/9120001/4m6das/7.5.0/_/download/resources/com.atlassian.jira.plugins.jira-editor-plugin:tinymce/tinymce-amd.js' 2>&1 >/dev/null; then
 	echo 'Alive'
 else
 	echo 'Failed to reach jira.gid.team'

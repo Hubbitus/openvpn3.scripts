@@ -5,7 +5,7 @@ source _config
 
 ./sessions.list | grep -F "Config name: ${CONFIG}" -A2 --color && echo "Connection with config [$CONFIG] already present! TERMINATING!!" && return
 
-_otp_code=$(oathtool -b --totp "`pass show GID.ru/VPN/OpenVPN/2fa.key`")
+_otp_code="$(oathtool -b --totp $(pass show GID.ru/VPN/OpenVPN/2fa.key))"
 
 # Debug
 # echo _otp_code=${_otp_code}
@@ -22,7 +22,11 @@ printf "plalexeev\n$(pass show GID.ru/AD.plalexeev)\n${_otp_code}\n" | openvpn3 
 #while sleep 2; do fping -c1 jira.gid.team 2>&1 | grep -q 'timed out' && echo "Ping failed for jira.gid.team"; done
 
 #set -x
-ping -c3 jira.gid.team
+echo 'Pinging:'
+ping -c2 jira.gid.team
+
+#echo 'Sleep 10 seconds before start accessibility monitoring:'
+#sleep 10
 echo 'Start monitoring accesibility of jira.gid.team'
 while sleep 10; do
 	echo -n "Check alive ($(date --iso-8601=s)):"

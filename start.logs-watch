@@ -1,0 +1,20 @@
+#!/usr/bin/bash
+
+source _config
+: ${CONFIG?"Var CONFIG is required!"}
+
+#openvpn3 log --log-level 6 --session-path /net/openvpn/v3/sessions/93b04210s6eaas42f0sb096s36f50f536872 --session-path /net/openvpn/v3/sessions/dba69074s37a5s4976s91ccsda3195df1e93
+#openvpn3 log --log-level 6 --config-events --config gid-vpn-plalexeev-3.ovpn
+
+echo 'Attaching to watch VPN log:'
+#./lines_unbufer.py
+openvpn3 log --log-level 6 --config ${CONFIG} 2>&1
+
+#echo Client INFO: Reconnecting
+#echo [STATUS] Connection, Client reconnect
+#echo Client VERB1: Waiting for server response
+#echo Client INFO: Reconnecting
+#echo [STATUS] Connection, Client reconnect
+#echo Client VERB1: Waiting for server response
+#echo Client VERB1: Authentication failed
+#echo [STATUS] Connection, Client authentication failed: Authentication failed

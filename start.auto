@@ -28,11 +28,12 @@ ping -c2 jira.gid.team
 #echo 'Sleep 10 seconds before start accessibility monitoring:'
 #sleep 10
 echo 'Start monitoring accesibility of jira.gid.team'
-while sleep 10; do
-	echo -n "Check alive ($(date --iso-8601=s)):"
+while echo -n "Check alive ($(date --iso-8601=s)):"; do
 	curl -sSf --connect-timeout 10 'https://jira.gid.team/s/d41d8cd98f00b204e9800998ecf8427e-CDN/4vmsmm/9120001/4m6das/7.5.0/_/download/resources/com.atlassian.jira.plugins.jira-editor-plugin:tinymce/tinymce-amd.js' 2>&1 >/dev/null \
 	|| ( echo 'Looks like a problem in check alive:' && ./check.jira ; echo -e '\nFailed to reach jira.gid.team' && exit 1 )
 	echo ' OK'
+	pass show GID.ru/VPN/OpenVPN/2fa.key > /dev/null # Keep access open
+	sleep 10
 done &
 echo 'And also watch VPN log:'
 #./lines_unbufer.py

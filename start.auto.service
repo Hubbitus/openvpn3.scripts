@@ -16,6 +16,7 @@ while sleep 1 && date --iso-8601=s; ./stop.all; do
 		read -r -u ${COPROC[0]} line
 		echo "check: ${line}"
 	done
+	notify-send --app-name 'GID OpenVPN auto-restarter' --urgency=critical --icon=warning --icon /usr/share/icons/Adwaita/symbolic/status/network-vpn-symbolic.svg 'VPN broken!'
 	echo '########################################'
 	echo '##### Error detected. Reconnecting #####'
 	echo '########################################'

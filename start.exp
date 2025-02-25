@@ -26,15 +26,12 @@ spawn openvpn3 session-start --config gid-vpn-plalexeev-3.ovpn --dco true
 expect_after eof {exit 0}
 
 set timeout 10
-
 expect "Auth User name:" {send "$loginUser\n"}
 
 set timeout 10
-
 expect "Auth Password:" {send "$loginPassword\n"}
 
 set timeout 10
-
 expect "Enter TOTP: " {send "$TOTPcode\n"}
 
 expect "Connected"

@@ -13,5 +13,8 @@ _otp_code="$(oathtool -b --totp $(pass show GID.ru/VPN/OpenVPN/2fa.key))"
 # By https://stackoverflow.com/questions/72337675/openvpn3-session-start-how-to-pass-username-and-password/73218533#73218533
 printf "plalexeev\n$(pass show GID.ru/AD.plalexeev)\n${_otp_code}\n" | openvpn3 session-start --config "${CONFIG}" --dco true
 
+echo 'Sleep 10 seconds to start monitoring tunnel accessibility:'
+sleep 10
+
 source ./start.monitor &
 source ./start.logs-watch

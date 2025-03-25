@@ -13,7 +13,7 @@ while sleep 1 && date --iso-8601=s; ./stop.all; do
 	# For the coproc recipe see https://stackoverflow.com/questions/75657896/kill-the-running-command-when-expected-output-is-met/75658900#75658900
 	coproc ./start.auto
 	date_start=$(date --iso-8601=ns)
-	until echo $line | grep --color -P '(?i)Authentication failed|Client process exited|key decryption failed|TERMINATING|Waiting for server response|timed out|ping failed|Failed to reach jira'; do
+	until echo $line | grep --color -P '(?i)Authentication failed|Client process exited|key decryption failed|TERMINATING|Waiting for server response|timed out|ping failed|Failed to reach check URL'; do
 		read -r -u ${COPROC[0]} line
 		echo "check: ${line}"
 	done

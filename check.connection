@@ -1,0 +1,19 @@
+#!/usr/bin/bash
+
+source _config
+: ${CONFIG?"Var CONFIG is required!"}
+: ${CHECK_URL?"Var CHECK_URL is required!"}
+: ${CHECK_PING_HOST?"Var CHECK_PING_HOST is required!"}
+
+#set -x
+
+echo "1) Ping ${CHECK_PING_HOST}:"
+ping -c2 "${CHECK_PING_HOST}"
+
+echo "2) Get static file from ${CHECK_URL}:"
+if curl -sSf --connect-timeout 5 "${CHECK_URL}" 2>&1 >/dev/null; then
+	echo 'Alive'
+else
+	echo 'Failed to reach check URL'
+	exit 1
+fi

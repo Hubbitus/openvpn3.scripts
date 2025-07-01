@@ -9,7 +9,7 @@ exec &> >( ts '%d-%H:%M:%.S' | ts -i -- '+%H:%M:%.S' | tee -i -- "$(basename $0)
 
 #rm -rvf *.log
 
-while sleep 1 && date --iso-8601=s; ./stop.all; do
+while sleep 1 && date --iso-8601=s; ./stop.all || :; do
 	# For the coproc recipe see https://stackoverflow.com/questions/75657896/kill-the-running-command-when-expected-output-is-met/75658900#75658900
 	coproc ./start.auto
 	date_start=$(date --iso-8601=ns)
@@ -19,7 +19,7 @@ while sleep 1 && date --iso-8601=s; ./stop.all; do
 	done
 	python -c "from dateutil.parser import parse as dt; print(f'VPN Vas alive: {dt('$(date --iso-8601=ns)') - dt('${date_start}')}')"
 
-	notify-send --app-name 'GID OpenVPN auto-restarter' --urgency=critical --icon=warning --icon /usr/share/icons/Adwaita/symbolic/status/network-vpn-symbolic.svg 'VPN broken! Reconnecting...'
+	notify-send --app-name 'GID OpenVPN auto-restarter' --urgency=normal --expire-time=$[60 * 60 * 1000] --icon /usr/share/icons/Adwaita/symbolic/status/network-vpn-symbolic.svg 'VPN broken! Reconnecting...'
 
 	echo '########################################'
 	echo '##### Error detected. Reconnecting #####'

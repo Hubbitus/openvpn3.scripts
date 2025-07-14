@@ -10,7 +10,7 @@ ping -c2 "${CHECK_PING_HOST}"
 
 echo "Start monitoring accesibility of ${CHECK_PING_HOST}"
 while echo -n "Check alive ($(date --iso-8601=s)):"; do
-	curl -sSf --connect-timeout 10 "${CHECK_URL}" 2>&1 >/dev/null \
+	curl -sSf --connect-timeout 15 "${CHECK_URL}" 2>&1 >/dev/null \
 	|| ( echo 'Looks like a problem in check alive:' && ./check.connection ; echo -e "\nFailed to reach check URL (${CHECK_URL})" && exit 1 )
 	echo ' OK'
 	sleep 10

@@ -1,8 +1,0 @@
-#!/usr/bin/bash
-
-source _config
-: ${CONFIG?"Var CONFIG is required!"}
-
-set -x
-
-openvpn3 session-manage --disconnect --config "${CONFIG}"

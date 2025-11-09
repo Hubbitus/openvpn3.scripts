@@ -4,5 +4,9 @@ CONFIG=gid-vpn-plalexeev-3.ovpn
 
 #CHECK_URL='https://jira.gid.team/s/d41d8cd98f00b204e9800998ecf8427e-CDN/4vmsmm/9120001/4m6das/7.5.0/_/download/resources/com.atlassian.jira.plugins.jira-editor-plugin:tinymce/tinymce-amd.js'
 #CHECK_PING_HOST=jira.gid.team
-CHECK_URL='https://gitlab.gid.team/assets/webpack/pages.root.e23b2a19.chunk.js'
+#CHECK_URL='https://gitlab.gid.team/assets/webpack/pages.root.e23b2a19.chunk.js'
+#CHECK_URL='https://gitlab.gid.team/assets/webpack/pages.root.e0ecd63d.chunk.js'
+#CHECK_URL=https://dev-gidapp.k8s-dev.gid.team/api/event-tracker/public/v1/sdk/settings
+CHECK_URL='https://mail.gid.ru/owa/ping.owa?UA=0'
 CHECK_PING_HOST=gitlab.gid.team
+CHECK_URL_READ_TIMEOUT_SEC=40

@@ -5,13 +5,15 @@ source _config
 : ${CHECK_URL?"Var CHECK_URL is required!"}
 : ${CHECK_PING_HOST?"Var CHECK_PING_HOST is required!"}
 
+set -o pipefail
+
 echo 'Pinging:'
 ping -c2 "${CHECK_PING_HOST}"
 
-echo "Start monitoring accesibility of ${CHECK_PING_HOST}"
+echo "Start monitoring accesibility (ping ${CHECK_PING_HOST}) and TCP probes"
 while echo -n "Check alive ($(date --iso-8601=s)):"; do
-	curl -sSf --connect-timeout 15 "${CHECK_URL}" 2>&1 >/dev/null \
+	TIME=$(/bin/time -f%E curl -sSf --connect-timeout ${CHECK_URL_READ_TIMEOUT_SEC} "${CHECK_URL}" 2>&1 >/dev/null) \
 	|| ( echo 'Looks like a problem in check alive:' && ./check.connection ; echo -e "\nFailed to reach check URL (${CHECK_URL})" && exit 1 )
-	echo ' OK'
+	echo " OK in [${TIME}]"
 	sleep 10
 done

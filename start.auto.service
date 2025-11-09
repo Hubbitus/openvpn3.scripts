@@ -13,11 +13,11 @@ while sleep 1 && date --iso-8601=s; ./stop.all || :; do
 	# For the coproc recipe see https://stackoverflow.com/questions/75657896/kill-the-running-command-when-expected-output-is-met/75658900#75658900
 	coproc ./start.auto
 	date_start=$(date --iso-8601=ns)
-	until echo $line | grep --color -P '(?i)Authentication failed|Client process exited|key decryption failed|TERMINATING|Waiting for server response|timed out|ping failed|Failed to reach check URL'; do
+	until echo $line | grep --color -P '(?i)Authentication failed|Client process exited|key decryption failed|TERMINATING|Waiting for server response|timed out|ping failed|Failed to reach check URL|\*\*\!\! FATAL \!\!\*\*'; do
 		read -r -u ${COPROC[0]} line
 		echo "check: ${line}"
 	done
-	python -c "from dateutil.parser import parse as dt; print(f'VPN Vas alive: {dt('$(date --iso-8601=ns)') - dt('${date_start}')}')"
+	python -c "from dateutil.parser import parse as dt; print(f'VPN was alive: {dt('$(date --iso-8601=ns)') - dt('${date_start}')}')"
 
 	notify-send --app-name 'GID OpenVPN auto-restarter' --urgency=normal --expire-time=$[60 * 60 * 1000] --icon /usr/share/icons/Adwaita/symbolic/status/network-vpn-symbolic.svg 'VPN broken! Reconnecting...'
 

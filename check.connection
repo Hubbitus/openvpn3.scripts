@@ -7,12 +7,14 @@ source _config
 
 #set -x
 
+set -o pipefail
+
 echo "1) Ping ${CHECK_PING_HOST}:"
 ping -c2 "${CHECK_PING_HOST}"
 
 echo "2) Get static file from ${CHECK_URL}:"
-if curl -sSf --connect-timeout 5 "${CHECK_URL}" 2>&1 >/dev/null; then
-	echo 'Alive'
+if TIME=$(/bin/time -f%E curl -sSf --connect-timeout 5 "${CHECK_URL}" 2>&1 >/dev/null); then
+	echo "Alive: ${TIME}"
 else
 	echo 'Failed to reach check URL'
 	exit 1

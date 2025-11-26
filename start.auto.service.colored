@@ -1,0 +1,11 @@
+#!/usr/bin/bash
+
+#./start.auto.service | ccze
+
+set -x
+
+#multitail -A -l "./start.auto.service | ccze -A"
+
+multitail -cS squid -l ./start.auto.service
+
+#multitail -l "bash -c './start.auto.service | ccze'"

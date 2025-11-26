@@ -8,5 +8,7 @@ CONFIG=gid-vpn-plalexeev-3.ovpn
 #CHECK_URL='https://gitlab.gid.team/assets/webpack/pages.root.e0ecd63d.chunk.js'
 #CHECK_URL=https://dev-gidapp.k8s-dev.gid.team/api/event-tracker/public/v1/sdk/settings
 CHECK_URL='https://mail.gid.ru/owa/ping.owa?UA=0'
+#CHECK_URL='https://bi.gid.ru/viewer/custom/scale-6.3.7.css?303935743='
 CHECK_PING_HOST=gitlab.gid.team
-CHECK_URL_READ_TIMEOUT_SEC=40
+#CHECK_PING_HOST=bi.gid.ru
+CHECK_URL_READ_TIMEOUT_SEC=20
